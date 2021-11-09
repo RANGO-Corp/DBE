@@ -1,0 +1,10 @@
+# database configs
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    username:
+    password:
+    url:
+  jpa:
+    hibernate:
+      ddl-auto: none

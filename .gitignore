@@ -16,12 +16,12 @@ target/
 ### IntelliJ IDEA ###
 .idea
 *.iws
+/nbbuild/
 *.iml
 *.ipr
 
 ### NetBeans ###
 /nbproject/private/
-/nbbuild/
 /dist/
 /nbdist/
 /.nb-gradle/
