@@ -22,6 +22,9 @@ public class Role {
     @Column(name = "ds_role", length = 40, nullable = false, unique = true)
     private String descricao;
 
+    @Column(name = "is_deafult")
+    private boolean isDefault;
+
     @ManyToMany(mappedBy = "roles")
     private List<Usuario> usuarios = new ArrayList<>();
 
