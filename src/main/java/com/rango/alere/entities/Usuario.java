@@ -1,6 +1,7 @@
 package com.rango.alere.entities;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -11,6 +12,7 @@ import java.util.List;
 
 @Data
 @Entity
+@NoArgsConstructor
 @Table(name = "T_ALERI_USER")
 public class Usuario {
 
@@ -77,4 +79,16 @@ public class Usuario {
     private List<Role> roles = new ArrayList<>();
 
 
+    public Usuario(Long id, String nome, String email, String password, String telefone, boolean confirmed, boolean banned, boolean actived, boolean termsAndConditions, Endereco endereco) {
+        this.id = id;
+        this.nome = nome;
+        this.email = email;
+        this.password = password;
+        this.telefone = telefone;
+        this.confirmed = confirmed;
+        this.banned = banned;
+        this.actived = actived;
+        this.termsAndConditions = termsAndConditions;
+        this.endereco = endereco;
+    }
 }

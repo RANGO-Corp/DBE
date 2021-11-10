@@ -1,6 +1,7 @@
 package com.rango.alere.entities;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -9,6 +10,7 @@ import java.time.LocalDateTime;
 
 @Data
 @Entity
+@NoArgsConstructor
 @Table(name = "T_ALERE_DOACAO")
 public class Doacao {
 
@@ -38,4 +40,12 @@ public class Doacao {
     @UpdateTimestamp
     private LocalDateTime updatedTimeStamp;
 
+
+    public Doacao(Long id, Solicitacao solicitacao, boolean realizada, Usuario doador, Usuario receptor) {
+        this.id = id;
+        this.solicitacao = solicitacao;
+        this.realizada = realizada;
+        this.doador = doador;
+        this.receptor = receptor;
+    }
 }

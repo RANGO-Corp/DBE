@@ -1,6 +1,7 @@
 package com.rango.alere.entities;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -11,6 +12,7 @@ import java.util.List;
 
 @Data
 @Entity
+@NoArgsConstructor
 @Table(name = "T_ALERE_ROLES")
 public class Role {
 
@@ -33,4 +35,11 @@ public class Role {
 
     @UpdateTimestamp
     private LocalDateTime updatedTimeStamp;
+
+
+    public Role(Long id, String descricao, boolean isDefault) {
+        this.id = id;
+        this.descricao = descricao;
+        this.isDefault = isDefault;
+    }
 }

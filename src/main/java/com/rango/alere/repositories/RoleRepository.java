@@ -12,5 +12,4 @@ public interface RoleRepository extends JpaRepository<Role, Long> {
 
     Optional<Role> getRoleByDescricaoIsLike(String descricao);
 
-    Optional<Role> getRoleByDefaultIsTrue();
 }

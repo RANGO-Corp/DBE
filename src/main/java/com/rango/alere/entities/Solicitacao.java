@@ -2,6 +2,7 @@ package com.rango.alere.entities;
 
 import com.rango.alere.entities.enums.Status;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -11,6 +12,7 @@ import java.time.LocalDateTime;
 
 @Data
 @Entity
+@NoArgsConstructor
 @Table(name = "T_ALERI_SOLICITACAO")
 public class Solicitacao {
 
@@ -49,4 +51,16 @@ public class Solicitacao {
 
     @OneToOne(mappedBy = "solicitacao")
     private Doacao doacao;
+
+
+    public Solicitacao(Long id, String mensagem, Status status, boolean respondida, Usuario de, Usuario para, Alimento alimento, Doacao doacao) {
+        this.id = id;
+        this.mensagem = mensagem;
+        this.status = status;
+        this.respondida = respondida;
+        this.de = de;
+        this.para = para;
+        this.alimento = alimento;
+        this.doacao = doacao;
+    }
 }

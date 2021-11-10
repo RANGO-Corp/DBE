@@ -2,6 +2,7 @@ package com.rango.alere.entities;
 
 import com.rango.alere.entities.enums.TipoAlimento;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -11,6 +12,7 @@ import java.util.List;
 
 @Data
 @Entity
+@NoArgsConstructor
 @Table(name = "T_ALERE_ALIMENTOS")
 public class Alimento {
 
@@ -70,5 +72,24 @@ public class Alimento {
 
     @OneToMany(mappedBy = "alimento")
     private List<Solicitacao> solicitacoes;
+
+
+    public Alimento(Long id, String titulo, String descricao, String urlFoto, LocalDateTime disponivelAte, LocalDateTime reservadoAte, LocalDateTime dataFabricacao, LocalDateTime dataValidade, Double longitude, Double latitude, boolean perecivel, boolean ativo, boolean reservado, TipoAlimento tipo, Usuario cadastradoPor) {
+        this.id = id;
+        this.titulo = titulo;
+        this.descricao = descricao;
+        this.urlFoto = urlFoto;
+        this.disponivelAte = disponivelAte;
+        this.reservadoAte = reservadoAte;
+        this.dataFabricacao = dataFabricacao;
+        this.dataValidade = dataValidade;
+        this.longitude = longitude;
+        this.latitude = latitude;
+        this.perecivel = perecivel;
+        this.ativo = ativo;
+        this.reservado = reservado;
+        this.tipo = tipo;
+        this.cadastradoPor = cadastradoPor;
+    }
 
 }
