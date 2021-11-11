@@ -9,11 +9,14 @@ import com.rango.alere.services.exceptions.SaveResourceException;
 import com.rango.alere.services.exceptions.UpdateResourceException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Slf4j
 @Service
-public class UsuarioService implements CrudService<Usuario, Long> {
+public class UsuarioService implements CrudService<Usuario, Long>, UserDetailsService {
 
     @Autowired
     private UsuarioRepository repository;
@@ -74,5 +77,14 @@ public class UsuarioService implements CrudService<Usuario, Long> {
 
     public Usuario findByEmailLike(String email) throws ResourceNotFoundException {
         return repository.findByEmailLike(email).orElseThrow(() -> new ResourceNotFoundException("Resource not found for email: " + email));
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
+        try {
+            return findByEmailLike(s);
+        } catch (ResourceNotFoundException e) {
+            throw new UsernameNotFoundException(e.getMessage());
+        }
     }
 }

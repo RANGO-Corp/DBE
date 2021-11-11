@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -14,7 +15,7 @@ import java.util.List;
 @Entity
 @NoArgsConstructor
 @Table(name = "T_ALERE_ROLES")
-public class Role {
+public class Role implements GrantedAuthority {
 
     @Id
     @Column(name = "id_role")
@@ -41,5 +42,10 @@ public class Role {
         this.id = id;
         this.descricao = descricao;
         this.isDefault = isDefault;
+    }
+
+    @Override
+    public String getAuthority() {
+        return this.descricao;
     }
 }
