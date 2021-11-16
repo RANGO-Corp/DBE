@@ -25,14 +25,8 @@ public class AuthController {
     @Autowired
     private UserFacade userFacade;
 
-
     @GetMapping("/login")
     public String login() {
-        return "login";
-    }
-
-    @PostMapping("/login")
-    public String doLogin() {
         return "login";
     }
 
@@ -54,14 +48,7 @@ public class AuthController {
             model.addAttribute("message", "Erro ao registrar");
             return prepareRegisterPage(model);
         }
-        redirectAttributes.addAttribute("message", "Usuario registrado com sucesso!");
-        return "redirect:/";
-    }
-
-
-
-    @GetMapping("/logout")
-    public String logout() {
+        redirectAttributes.addFlashAttribute("message", "Usuario registrado com sucesso!");
         return "redirect:/";
     }
 

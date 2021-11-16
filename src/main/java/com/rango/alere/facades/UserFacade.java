@@ -10,12 +10,14 @@ import com.rango.alere.services.impl.RoleService;
 import com.rango.alere.services.impl.UsuarioService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Slf4j
 @Service
@@ -92,9 +94,9 @@ public class UserFacade {
         }
     }
 
-    public UserDetails autenticar(Usuario usuario){
+    public UserDetails autenticate(Usuario usuario) {
         UserDetails details = usuarioService.loadUserByUsername(usuario.getUsername());
-        if (passwordEncoder.matches(usuario.getPassword(), details.getPassword())){
+        if (passwordEncoder.matches(usuario.getPassword(), details.getPassword())) {
             return details;
         }
         throw new PasswordInvalidException("Senha inválida");
@@ -102,6 +104,15 @@ public class UserFacade {
 
     public boolean existsUserByEmail(String email) {
         return usuarioService.existsUsuarioByEmailLike(email);
+    }
+
+    public Usuario getCurrentUser() {
+            String username = null;
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof UserDetails) {
+            username = ((UserDetails)principal).getUsername();
+        }
+        return (Objects.nonNull(username) && usuarioService.existsUsuarioByEmailLike(username))? usuarioService.findByEmailLike(username):null;
     }
 
 }

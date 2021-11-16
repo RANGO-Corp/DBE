@@ -28,11 +28,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .headers()
-                .frameOptions().disable()
-                .and()
+                    .frameOptions().disable()
+                    .and()
                 .csrf().disable()
                 .authorizeRequests()
+                .antMatchers("/terms")
+                    .authenticated()
                 .anyRequest()
-                .permitAll();
+                    .permitAll()
+                    .and()
+                .formLogin()
+                    .loginPage("/auth/login")
+                    .permitAll()
+                    .and()
+                .logout()
+                    .logoutUrl("/auth/logout");
     }
 }
