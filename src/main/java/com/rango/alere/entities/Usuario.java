@@ -1,5 +1,7 @@
 package com.rango.alere.entities;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
@@ -15,7 +17,9 @@ import java.util.List;
 
 @Data
 @Entity
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "T_ALERI_USER")
 public class Usuario implements UserDetails {
 
@@ -55,7 +59,8 @@ public class Usuario implements UserDetails {
     private LocalDateTime updatedTimeStamp;
 
 
-    @OneToOne(mappedBy = "usuario")
+
+    @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL)
     private Endereco endereco;
 
     @OneToMany(mappedBy = "cadastradoPor")
@@ -71,7 +76,7 @@ public class Usuario implements UserDetails {
     private List<Doacao> doacoes = new ArrayList<>();
 
     @OneToMany(mappedBy = "receptor")
-    private List<Doacao> recebimenTos = new ArrayList<>();
+    private List<Doacao> recebimentos = new ArrayList<>();
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(

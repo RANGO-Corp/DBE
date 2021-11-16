@@ -11,6 +11,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Slf4j
 @Service
 public class RoleService implements CrudService<Role, Long> {
@@ -70,6 +72,10 @@ public class RoleService implements CrudService<Role, Long> {
 
     public Role findRoleByDescricao(String descricao) throws ResourceNotFoundException {
         return repository.getRoleByDescricaoIsLike(descricao).orElseThrow(() -> new ResourceNotFoundException("Resource not found for descricao: " + descricao));
+    }
+
+    public List<Role> getDefaultRoles() {
+        return repository.getRoleByDefaultIsTrue();
     }
 
 }

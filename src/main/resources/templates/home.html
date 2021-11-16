@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+
+<head th:include="_template :: head"></head>
+<body>
+
+<h1>Alere</h1>
+
+<section class="card form">
+
+    <img th:src="@{~/images/Alere.svg}" alt="">
+    <h2>Home</h2>
+
+    <h2 th:if="${message}" th:text="${message}"></h2>
+
+</section>
+
+</body>
+</html>

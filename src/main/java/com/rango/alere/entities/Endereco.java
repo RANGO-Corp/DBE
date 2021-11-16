@@ -1,6 +1,8 @@
 package com.rango.alere.entities;
 
 import com.rango.alere.entities.enums.Estado;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
@@ -11,7 +13,9 @@ import java.time.LocalDateTime;
 
 @Data
 @Entity
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "T_ALERE_ENDERECO")
 public class Endereco {
 
@@ -63,5 +67,21 @@ public class Endereco {
         this.estado = estado;
         this.complemento = complemento;
         this.usuario = usuario;
+    }
+
+    @Override
+    public String toString() {
+        return "Endereco{" +
+                "id=" + id +
+                ", logradouro='" + logradouro + '\'' +
+                ", numero='" + numero + '\'' +
+                ", bairro='" + bairro + '\'' +
+                ", cep='" + cep + '\'' +
+                ", cidade='" + cidade + '\'' +
+                ", estado=" + estado +
+                ", complemento='" + complemento + '\'' +
+                ", createdTimestamp=" + createdTimestamp +
+                ", updatedTimeStamp=" + updatedTimeStamp +
+                '}';
     }
 }
