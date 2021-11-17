@@ -6,11 +6,10 @@
 >
     <head th:include="_template :: head"></head>
     <body>
-        <nav th:include="_template :: menu('home')" class="navbar navbar-dark bg-dark navbar-expand-lg"></nav>
+        <nav th:include="_template :: menu('profile')" class="navbar navbar-dark bg-dark navbar-expand-lg"></nav>
         <div class="container mt-3 mb-3">
-                <h2>Home</h2>
-                <h2 th:if="${message}" th:text="${message}"></h2>
-                <h2 th:if="${currentUser}" th:text="${currentUser.nome}"></h2>
+            <h2>Profile</h2>
+            <h2 th:if="${currentUser}" th:text="${currentUser.nome}"></h2>
         </div>
 
         <div class="scripts" th:include="_template :: scripts"></div>

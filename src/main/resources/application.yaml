@@ -1,5 +1,21 @@
 spring:
   profiles:
-    active: test
+    active: "test"
   jpa:
     open-in-view: true
+  boot:
+    admin:
+      client:
+        url: "http://localhost:8081"
+  security:
+    user:
+      name: "user"
+      password: "teste123"
+management:
+  endpoint:
+      health:
+        show-details: "always"
+  endpoints:
+    web:
+      exposure:
+        include: "*"
