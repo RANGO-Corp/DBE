@@ -1,146 +1,140 @@
 <!DOCTYPE html>
-<html xmlns:th="http://thymeleaf.org">
-
-<head th:include="_template :: head"></head>
-<body>
-
-<h1>alere</h1>
-<img th:src="@{~/images/Alere.svg}" alt="">
-
-<span th:if="${param.error}" class="alert error">Login inválido</span>
-
-<section class="card container">
-    <h2>Register</h2>
-    <h3 ></h3>
-    <form method="post" class="row g-3" th:object="${userRegisterDTO}">
-        <div class="col-md-6">
-            <label for="inputNome" class="form-label">Nome</label>
-            <input type="text" class="form-control" id="inputNome" name="nome" th:value="${userRegisterDTO.nome}"
-                   th:field="*{nome}">
-            <span th:errors="*{nome}" class="text-danger"></span>
-        </div>
-        <div class="col-md-6">
-            <label for="inputSobrenome" class="form-label">Sobrenome</label>
-            <input type="text" class="form-control" name="sobrenome" th:value="${userRegisterDTO.sobrenome}"
-                   th:field="*{sobrenome}" id="inputSobrenome">
-            <span th:errors="*{sobrenome}" class="text-danger"></span>
-        </div>
-        <div class="col-12">
-            <label for="inputEmail" class="form-label">Email</label>
-            <input type="email" name="email" class="form-control" th:field="*{email}" id="inputEmail">
-            <span th:errors="*{email}" class="text-danger"></span>
-        </div>
-        <div class="col-md-6">
-            <label for="inputPassword" class="form-label">Senha</label>
-            <input type="password" class="form-control" id="inputPassword" name="password"
-                   th:value="${userRegisterDTO.password}" th:field="*{password}" min="8" maxlength="32">
-            <span th:errors="*{password}" class="text-danger"></span>
-        </div>
-
-        <div class="col-md-6">
-            <label for="inputConfirmPassword" class="form-label">Confirmar Senha</label>
-            <input type="password" class="form-control" id="inputConfirmPassword" name="password"
-                   th:value="${userRegisterDTO.confirmPassword}" th:field="*{confirmPassword}" min="8" maxlength="32">
-        </div>
-
-        <div class="col-md-6">
-            <label for="inputTelefone" class="form-label">Telefone</label>
-            <input type="tel" class="form-control" id="inputTelefone" name="telefone"
-                   th:value="${userRegisterDTO.telefone}" th:field="*{telefone}">
-            <span th:errors="*{telefone}" class="text-danger"></span>
-        </div>
-
-        <span class="col-12">Cadastrar como:</span>
-
-        <div class="col-12">
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="idReceptor"
-                       th:value="${userRegisterDTO.receptor}" th:field="*{receptor}">
-                <label class="form-check-label" for="idReceptor">Receptor</label>
+<html xmlns:th="http://thymeleaf.org" lang="pt">
+    <head th:include="_template :: head"></head>
+    <body>
+        <nav th:include="_template :: menu('register')" class="navbar navbar-dark bg-dark navbar-expand-lg"></nav>
+        <div class="container mt-3 mb-3" >
+            <h1 class="title">Register</h1>
+            <hr>
+            <form method="post" class="row g-3" th:object="${userRegisterDTO}">
+            <div class="col-md-6">
+                <label for="inputNome" class="form-label">Nome</label>
+                <input type="text" class="form-control" id="inputNome" name="nome" th:value="${userRegisterDTO.nome}"
+                       th:field="*{nome}">
+                <span th:errors="*{nome}" class="text-danger"></span>
             </div>
-        </div>
-
-        <div class="col-12">
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="idDoador"
-                       th:value="${userRegisterDTO.doador}" th:field="*{doador}">
-                <label class="form-check-label" for="idDoador">Doador</label>
+            <div class="col-md-6">
+                <label for="inputSobrenome" class="form-label">Sobrenome</label>
+                <input type="text" class="form-control" name="sobrenome" th:value="${userRegisterDTO.sobrenome}"
+                       th:field="*{sobrenome}" id="inputSobrenome">
+                <span th:errors="*{sobrenome}" class="text-danger"></span>
             </div>
-        </div>
-
-        <div class="row g-3">
             <div class="col-12">
-                <label for="inputLogradouro" class="form-label">Logradouro</label>
-                <input name="logradouro" type="text" class="form-control" id="inputLogradouro"
-                       th:value="${userRegisterDTO.endereco.logradouro}" th:field="*{endereco.logradouro}"
-                       placeholder="Logradouro">
-                <span th:errors="*{endereco.logradouro}" class="text-danger"></span>
+                <label for="inputEmail" class="form-label">Email</label>
+                <input type="email" name="email" class="form-control" th:field="*{email}" id="inputEmail">
+                <span th:errors="*{email}" class="text-danger"></span>
             </div>
-            <div class="col-2">
-                <label for="inputNumero" class="form-label">Número</label>
-                <input type="text" name="numero" class="form-control" id="inputNumero"
-                       th:value="${userRegisterDTO.endereco.numero}" th:field="*{endereco.numero}"
-                       placeholder="Número">
-                <span th:errors="*{endereco.numero}" class="text-danger"></span>
-            </div>
-
-            <div class="col-4">
-                <label for="inputBairro" class="form-label">Bairro</label>
-                <input type="text" name="bairro" class="form-control" id="inputBairro"
-                       th:value="${userRegisterDTO.endereco.bairro}" th:field="*{endereco.bairro}"
-                       placeholder="Bairro">
-                <span th:errors="*{endereco.bairro}" class="text-danger"></span>
-            </div>
-
-            <div class="col-6">
-                <label for="inputComplemento" class="form-label">Complemento</label>
-                <input type="text" name="complemento" class="form-control" id="inputComplemento"
-                       th:value="${userRegisterDTO.endereco.complemento}" th:field="*{endereco.complemento}"
-                       placeholder="Apartment, studio, or floor">
-                <span th:errors="*{endereco.complemento}" class="text-danger"></span>
-            </div>
-
-            <div class="col-md-2">
-                <label for="inputCEP" class="form-label">CEP</label>
-                <input type="text" class="form-control" th:value="${userRegisterDTO.endereco.cep}"
-                       th:field="*{endereco.cep}" id="inputCEP" min="8" maxlength="8">
-                <span th:errors="*{endereco.cep}" class="text-danger"></span>
+            <div class="col-md-6">
+                <label for="inputPassword" class="form-label">Senha</label>
+                <input type="password" class="form-control" id="inputPassword" name="password"
+                       th:value="${userRegisterDTO.password}" th:field="*{password}" min="8" maxlength="32">
+                <span th:errors="*{password}" class="text-danger"></span>
             </div>
 
             <div class="col-md-6">
-                <label for="inputCidade" class="form-label">Cidade</label>
-                <input type="text" class="form-control" th:value="${userRegisterDTO.endereco.cidade}"
-                       th:field="*{endereco.cidade}" id="inputCidade">
-                <span th:errors="*{endereco.cidade}" class="text-danger"></span>
+                <label for="inputConfirmPassword" class="form-label">Confirmar Senha</label>
+                <input type="password" class="form-control" id="inputConfirmPassword" name="password"
+                       th:value="${userRegisterDTO.confirmPassword}" th:field="*{confirmPassword}" min="8" maxlength="32">
             </div>
 
-            <div class="col-md-4">
-                <label for="inputEstado" class="form-label"> Estado</label>
-                <select id="inputEstado" class="form-select" name="estado" th:field="*{endereco.estado}">
-                    <option value="">Selecione o Estado</option>
-                    <option th:each="estado : ${estados}" th:value="${estado}" th:text="${estado.name}"></option>
-                </select>
-                <span th:errors="*{endereco.estado}" class="text-danger"></span>
+            <div class="col-md-6">
+                <label for="inputTelefone" class="form-label">Telefone</label>
+                <input type="tel" class="form-control" id="inputTelefone" name="telefone"
+                       th:value="${userRegisterDTO.telefone}" th:field="*{telefone}">
+                <span th:errors="*{telefone}" class="text-danger"></span>
             </div>
 
-        </div>
+            <span class="col-12">Cadastrar como:</span>
 
-        <div class="col-12">
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="termsAndConditions"
-                       th:value="${userRegisterDTO.termsAndConditions}" th:field="*{termsAndConditions}">
-                <label class="form-check-label" for="termsAndConditions">
-                    Li e concocrdo com os <a class="link">Termos e Condições</a>
-                </label>
-
-                <span th:errors="*{termsAndConditions}" class="text-danger d-block"></span>
+            <div class="col-12">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="idReceptor"
+                           th:value="${userRegisterDTO.receptor}" th:field="*{receptor}">
+                    <label class="form-check-label" for="idReceptor">Receptor</label>
+                </div>
             </div>
-        </div>
-        <div class="col-12">
-            <button type="submit" class="btn btn-primary">Registrar-se</button>
-        </div>
-    </form>
-</section>
 
-</body>
+            <div class="col-12">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="idDoador"
+                           th:value="${userRegisterDTO.doador}" th:field="*{doador}">
+                    <label class="form-check-label" for="idDoador">Doador</label>
+                </div>
+            </div>
+
+            <div class="row g-3">
+                <div class="col-12">
+                    <label for="inputLogradouro" class="form-label">Logradouro</label>
+                    <input name="logradouro" type="text" class="form-control" id="inputLogradouro"
+                           th:value="${userRegisterDTO.endereco.logradouro}" th:field="*{endereco.logradouro}"
+                           placeholder="Logradouro">
+                    <span th:errors="*{endereco.logradouro}" class="text-danger"></span>
+                </div>
+                <div class="col-2">
+                    <label for="inputNumero" class="form-label">Número</label>
+                    <input type="text" name="numero" class="form-control" id="inputNumero"
+                           th:value="${userRegisterDTO.endereco.numero}" th:field="*{endereco.numero}"
+                           placeholder="Número">
+                    <span th:errors="*{endereco.numero}" class="text-danger"></span>
+                </div>
+
+                <div class="col-4">
+                    <label for="inputBairro" class="form-label">Bairro</label>
+                    <input type="text" name="bairro" class="form-control" id="inputBairro"
+                           th:value="${userRegisterDTO.endereco.bairro}" th:field="*{endereco.bairro}"
+                           placeholder="Bairro">
+                    <span th:errors="*{endereco.bairro}" class="text-danger"></span>
+                </div>
+
+                <div class="col-6">
+                    <label for="inputComplemento" class="form-label">Complemento</label>
+                    <input type="text" name="complemento" class="form-control" id="inputComplemento"
+                           th:value="${userRegisterDTO.endereco.complemento}" th:field="*{endereco.complemento}"
+                           placeholder="Apartamento, Loja, Bloco, etc">
+                    <span th:errors="*{endereco.complemento}" class="text-danger"></span>
+                </div>
+
+                <div class="col-md-2">
+                    <label for="inputCEP" class="form-label">CEP</label>
+                    <input type="text" class="form-control" th:value="${userRegisterDTO.endereco.cep}"
+                           th:field="*{endereco.cep}" id="inputCEP" min="8" maxlength="8">
+                    <span th:errors="*{endereco.cep}" class="text-danger"></span>
+                </div>
+
+                <div class="col-md-6">
+                    <label for="inputCidade" class="form-label">Cidade</label>
+                    <input type="text" class="form-control" th:value="${userRegisterDTO.endereco.cidade}"
+                           th:field="*{endereco.cidade}" id="inputCidade">
+                    <span th:errors="*{endereco.cidade}" class="text-danger"></span>
+                </div>
+
+                <div class="col-md-4">
+                    <label for="inputEstado" class="form-label"> Estado</label>
+                    <select id="inputEstado" class="form-select" name="estado" th:field="*{endereco.estado}">
+                        <option value="">Selecione o Estado</option>
+                        <option th:each="estado : ${estados}" th:value="${estado}" th:text="${estado.name}"></option>
+                    </select>
+                    <span th:errors="*{endereco.estado}" class="text-danger"></span>
+                </div>
+
+            </div>
+
+            <div class="col-12">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="termsAndConditions"
+                           th:value="${userRegisterDTO.termsAndConditions}" th:field="*{termsAndConditions}">
+                    <label class="form-check-label" for="termsAndConditions">
+                        Li e concocrdo com os <a class="link">Termos e Condições</a>
+                    </label>
+
+                    <span th:errors="*{termsAndConditions}" class="text-danger d-block"></span>
+                </div>
+            </div>
+            <div class="col-12">
+                <button type="submit" class="btn btn-primary">Registrar-se</button>
+            </div>
+        </form>
+        </div>
+        <div class="scripts" th:include="_template :: scripts"></div>
+    </body>
 </html>

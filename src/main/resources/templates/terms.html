@@ -1,15 +1,11 @@
 <!DOCTYPE html>
-<html xmlns:th="http://thymeleaf.org">
-
-<head th:include="_template :: head"></head>
-<body>
-
-<h1>Alere</h1>
-
-<section class="card form">
-  <h2>Terms</h2>
-
-</section>
-
-</body>
+<html xmlns:th="http://thymeleaf.org" lang="pt">
+  <head th:include="_template :: head"></head>
+  <body>
+    <nav th:include="_template :: menu('home')" class="navbar navbar-dark bg-dark navbar-expand-lg"></nav>
+    <div class="container mt-3 mb-3" >
+        <h2>Terms</h2>
+    </div>
+    <div class="scripts" th:include="_template :: scripts"></div>
+  </body>
 </html>
