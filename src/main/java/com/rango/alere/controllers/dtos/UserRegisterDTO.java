@@ -1,6 +1,7 @@
 package com.rango.alere.controllers.dtos;
 
 import com.rango.alere.controllers.dtos.validations.TermAndConditionsIsTrue;
+import com.rango.alere.controllers.dtos.validations.UniqueEmail;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -26,6 +27,7 @@ public class UserRegisterDTO {
 
     @Email(message = "{usuario.email.valid}")
     @NotBlank(message = "{usuario.email.empty}")
+    @UniqueEmail(message = "{usuario.email.unique}")
     private String email;
 
     @Size(min = 8, max = 32, message = "{usuario.password.size}")

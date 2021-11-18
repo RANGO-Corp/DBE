@@ -34,6 +34,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/terms")
                     .authenticated()
+                .antMatchers("/alimentos/new")
+                    .hasRole("DOADOR")
                 .anyRequest()
                     .permitAll()
                     .and()

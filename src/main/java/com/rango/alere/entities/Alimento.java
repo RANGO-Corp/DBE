@@ -1,6 +1,7 @@
 package com.rango.alere.entities;
 
 import com.rango.alere.entities.enums.TipoAlimento;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
@@ -8,6 +9,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -23,11 +25,12 @@ public class Alimento {
     @Column(name = "ds_titulo", length = 60, nullable = false)
     private String titulo;
 
-    @Column(name = "ds_descricao", nullable = false)
+    @Column(name = "ds_descricao", nullable = false, columnDefinition = "text")
     private String descricao;
 
-    @Column(name = "url_foto")
-    private String urlFoto;
+    @Lob
+    @Column(name = "image")
+    private String image;
 
     @Column(name = "ds_disponivel_ate")
     private LocalDateTime disponivelAte;
@@ -71,14 +74,14 @@ public class Alimento {
     private Usuario cadastradoPor;
 
     @OneToMany(mappedBy = "alimento")
-    private List<Solicitacao> solicitacoes;
+    private List<Solicitacao> solicitacoes = new ArrayList<>();
 
 
-    public Alimento(Long id, String titulo, String descricao, String urlFoto, LocalDateTime disponivelAte, LocalDateTime reservadoAte, LocalDateTime dataFabricacao, LocalDateTime dataValidade, Double longitude, Double latitude, boolean perecivel, boolean ativo, boolean reservado, TipoAlimento tipo, Usuario cadastradoPor) {
+    public Alimento(Long id, String titulo, String descricao, String image, LocalDateTime disponivelAte, LocalDateTime reservadoAte, LocalDateTime dataFabricacao, LocalDateTime dataValidade, Double longitude, Double latitude, boolean perecivel, boolean ativo, boolean reservado, TipoAlimento tipo, Usuario cadastradoPor) {
         this.id = id;
         this.titulo = titulo;
         this.descricao = descricao;
-        this.urlFoto = urlFoto;
+        this.image = image;
         this.disponivelAte = disponivelAte;
         this.reservadoAte = reservadoAte;
         this.dataFabricacao = dataFabricacao;

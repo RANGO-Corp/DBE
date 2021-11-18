@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html
+        xmlns:th="http://thymeleaf.org"
+        lang="pt"
+        xmlns:sec="http://thymeleaf.org/thymeleaf-extras-springsecurity5"
+>
+    <head th:include="_template :: head"></head>
+    <body>
+        <nav th:include="_template :: menu('alimentos')" class="navbar navbar-dark bg-dark navbar-expand-lg"></nav>
+        <div class="container mt-3 mb-3">
+            <h2>Novo alimento</h2>
+            <hr>
+            <form method="post" class="row g-3" th:object="${alimentoInsertDTO}" enctype="multipart/form-data">
+                <div >
+                    <label for="inputTitulo" class="form-label">Titulo</label>
+                    <input type="text" class="form-control" id="inputTitulo" name="titulo" th:value="${alimentoInsertDTO.titulo}"
+                           th:field="*{titulo}">
+                    <span th:errors="*{titulo}" class="text-danger"></span>
+                </div>
+
+                <div class="col-12">
+                    <label for="inputDescricao" class="form-label">Descrição</label>
+                    <textarea
+                            name="descricao"
+                            id="inputDescricao"
+                            rows=""
+                            cols=""
+                            th:field="*{descricao}"
+                            th:value="${alimentoInsertDTO.descricao}"
+                            class="form-control"
+                            placeholder="descrição"
+                    ></textarea>
+                    <span th:errors="*{descricao}" class="text-danger"></span>
+                </div>
+
+                <div>
+                    <label for="inputFile" class="form-label">Foto</label>
+                    <input type="file" class="form-control" id="inputFile" name="file" th:value="${alimentoInsertDTO.file}"
+                           th:field="*{file}">
+                    <span th:errors="*{file}" class="text-danger"></span>
+                </div>
+
+                <div class="col-md-6">
+                    <label for="inputDataFabricacao" class="form-label">Data de Fabricação</label>
+                    <input type="datetime-local" name="dataFabricacao" th:field="*{dataFabricacao}" class="form-control" id="inputDataFabricacao" th:value="${alimentoInsertDTO.dataFabricacao}"/>
+                </div>
+
+                <div class="col-md-6">
+                    <label for="inputDataValidade" class="form-label">Data de Validade</label>
+                    <input type="datetime-local" name="dataValidade" th:field="*{dataValidade}" class="form-control" id="inputDataValidade" th:value="${alimentoInsertDTO.dataValidade}"/>
+                </div>
+
+                <div class="col-md-6">
+                    <label for="inputTipo" class="form-label">Tipo de Alimento</label>
+                    <select id="inputTipo" class="form-select" name="tipo" th:field="*{tipo}">
+                        <option value="">Selecione o Tipo</option>
+                        <option th:each="tipo : ${tiposAlimentos}" th:value="${tipo}" th:text="${tipo.name}"></option>
+                    </select>
+                    <span th:errors="*{tipo}" class="text-danger"></span>
+                </div>
+
+
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" id="inputPerecivel" checked th:value="${alimentoInsertDTO.perecivel}" th:field="*{perecivel}">
+                    <label class="form-check-label" for="inputPerecivel">Perecível</label>
+                </div>
+
+                <div class="col-12">
+                    <button type="submit" class="btn btn-primary">Cadastrar</button>
+                </div>
+            </form>
+        </div>
+        <div class="scripts" th:include="_template :: scripts"></div>
+    </body>
+</html>

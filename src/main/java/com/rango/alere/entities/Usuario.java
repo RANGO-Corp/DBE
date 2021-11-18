@@ -20,7 +20,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "T_ALERI_USER")
+@Table(name = "T_ALERE_USER")
 public class Usuario implements UserDetails {
 
     @Id

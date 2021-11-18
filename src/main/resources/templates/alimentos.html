@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html
+        xmlns:th="http://thymeleaf.org"
+        lang="pt"
+        xmlns:sec="http://thymeleaf.org/thymeleaf-extras-springsecurity5"
+>
+    <head th:include="_template :: head"></head>
+    <body>
+        <nav th:include="_template :: menu('alimentos')" class="navbar navbar-dark bg-dark navbar-expand-lg"></nav>
+        <div class="container mt-3 mb-3 mb">
+            <h2>Alimentos</h2>
+
+            <a th:href="@{/alimentos/new}" sec:authorize='hasRole("ROLE_DOADOR")' class="btn btn-success">Cadastrar</a>
+            <hr>
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+                <div class="col" th:each="alimento : ${alimentos}">
+                    <div class="card">
+                        <img th:if="!${alimento.image}" th:src="@{~/images/placeholder.png}" class="card-img-top">
+                        <img th:if="${alimento.image}" th:src="*{'data:image/jpeg;base64,'+{alimento.image}}" class="card-img-top">
+                        <div class="card-body">
+                            <h5 class="card-title" th:text="${alimento.titulo}"></h5>
+                            <p class="card-text" th:text="${alimento.descricao}"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <nav th:if="${alimentos.totalPages > 0}" class="mt-3 mb-3 container">
+            <ul class="pagination justify-content-end">
+                <li class="page-item" th:each="pageNumber: ${pageNumbers}"
+                    th:classappend="${pageNumber==alimentos.number + 1}? active">
+                    <a class="page-link"
+                       th:href="@{/alimentos(size=${alimentos.size}, page=${pageNumber - 1})}"
+                       th:text=${pageNumber}></a>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="scripts" th:include="_template :: scripts"></div>
+    </body>
+</html>

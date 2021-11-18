@@ -54,10 +54,10 @@ public class UserFacade {
 
             // Roles
             final List<Role> roles = new ArrayList<>(roleService.getDefaultRoles());
-            if (registerForm.isDoador() || roleService.existsByDescricao("DOADOR")) {
+            if (registerForm.isDoador() && roleService.existsByDescricao("DOADOR")) {
                 roles.add(roleService.findRoleByDescricao("DOADOR"));
             }
-            if (registerForm.isReceptor() || roleService.existsByDescricao("RECEPTOR")) {
+            if (registerForm.isReceptor() && roleService.existsByDescricao("RECEPTOR")) {
                 roles.add(roleService.findRoleByDescricao("RECEPTOR"));
             }
 

@@ -32,7 +32,7 @@ public class AuthController {
 
     @GetMapping("/register")
     public String register(Model model) {
-        model.addAttribute("userRegisterDTO", RegisterHelper.getNewRegisterForm());
+        model.addAttribute("userRegisterDTO", RegisterHelper.getNewUserRegisterForm());
         return prepareRegisterPage(model);
     }
 

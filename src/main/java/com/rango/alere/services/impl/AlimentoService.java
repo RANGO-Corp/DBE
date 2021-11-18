@@ -70,7 +70,7 @@ public class AlimentoService implements CrudService<Alimento, Long> {
         target.setPerecivel(source.isPerecivel());
         target.setReservado(source.isReservado());
         target.setReservadoAte(source.getReservadoAte());
-        target.setUrlFoto(source.getUrlFoto());
+        target.setImage(source.getImage());
         target.setTitulo(source.getTitulo());
         target.setTipo(source.getTipo());
     }
