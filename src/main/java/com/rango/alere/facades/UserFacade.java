@@ -1,20 +1,19 @@
 package com.rango.alere.facades;
 
 import com.rango.alere.controllers.dtos.UserRegisterDTO;
-import com.rango.alere.entities.Endereco;
-import com.rango.alere.entities.Role;
-import com.rango.alere.entities.Usuario;
+import com.rango.alere.entities.*;
+import com.rango.alere.entities.enums.Status;
 import com.rango.alere.services.exceptions.PasswordInvalidException;
-import com.rango.alere.services.impl.EnderecoService;
-import com.rango.alere.services.impl.RoleService;
-import com.rango.alere.services.impl.UsuarioService;
+import com.rango.alere.services.impl.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.annotation.Transient;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -27,7 +26,13 @@ public class UserFacade {
     private UsuarioService usuarioService;
 
     @Autowired
-    private EnderecoService enderecoService;
+    private DoacaoService doacaoService;
+
+    @Autowired
+    private AlimentoService alimentoService;
+
+    @Autowired
+    private SolicitacaoService solicitacaoService;
 
     @Autowired
     private RoleService roleService;
@@ -113,6 +118,37 @@ public class UserFacade {
             username = ((UserDetails)principal).getUsername();
         }
         return (Objects.nonNull(username) && usuarioService.existsUsuarioByEmailLike(username))? usuarioService.findByEmailLike(username):null;
+    }
+
+    public Solicitacao createSolicitacao(Usuario from, String msg , Alimento alimento) {
+        try {
+            Solicitacao solicitacao = new Solicitacao(null, msg, Status.AGUARDANDO, false, from, alimento.getCadastradoPor(), alimento, null);
+            return solicitacaoService.save(solicitacao);
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+            return null;
+        }
+    }
+
+    @Transient
+    public Solicitacao responderSolicitacao(Solicitacao solicitacao, Status status) {
+        if (Objects.isNull(solicitacao) || Objects.isNull(status) || status.equals(Status.AGUARDANDO)) {
+            throw new IllegalArgumentException();
+        }
+        solicitacao.setStatus(status);
+        solicitacao.setRespondida(true);
+        solicitacaoService.save(solicitacao);
+
+        if (status.equals(Status.APROVADO)) {
+            Alimento alimento = solicitacao.getAlimento();
+            alimento.setAtivo(false);
+            alimento.setReservado(true);
+            alimento.setReservadoAte(LocalDateTime.now().plusDays(10));
+            alimentoService.save(alimento);
+            Doacao doacao = new Doacao(null, solicitacao, false, solicitacao.getPara(), solicitacao.getDe());
+            doacaoService.save(doacao);
+        }
+        return solicitacao;
     }
 
 }

@@ -4,6 +4,7 @@ import com.rango.alere.controllers.dtos.AlimentoInsertDTO;
 import com.rango.alere.controllers.dtos.EnderecoInsertDTO;
 import com.rango.alere.controllers.dtos.UserRegisterDTO;
 import com.rango.alere.entities.enums.Estado;
+import com.rango.alere.entities.enums.Status;
 import com.rango.alere.entities.enums.TipoAlimento;
 
 import java.util.List;
@@ -29,6 +30,10 @@ public class RegisterHelper {
 
     public static List<TipoAlimento> getTiposAlimentos() {
         return List.of(TipoAlimento.values());
+    }
+
+    public static List<Status> getStatus(){
+        return List.of(Status.values());
     }
 
 

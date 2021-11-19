@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html
+        xmlns:th="http://thymeleaf.org"
+        lang="pt"
+        xmlns:sec="http://thymeleaf.org/thymeleaf-extras-springsecurity5"
+>
+    <head th:include="_template :: head"></head>
+    <body>
+        <nav th:include="_template :: menu('alimento')" class="navbar navbar-dark bg-dark navbar-expand-lg"></nav>
+        <div class="container mt-3 mb-3 mb">
+            <div class="alert alert-danger" sec:authorize="!isAuthenticated()">
+                Para solicitar a retirada é preciso estar logado. Você pode se logar <a th:href="@{/auth/login}">aqui</a>.
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            <h2 th:text="${alimento.titulo}"></h2>
+            <hr>
+            <p th:text="${alimento.descricao}"></p>
+            <img th:if="!${alimento.image}" th:src="@{~/images/placeholder.png}" class="img img-fluid">
+            <img th:if="${alimento.image}" th:src="*{'data:image/jpeg;base64,'+{alimento.image}}" class="img img-fluid">
+            <p th:text="${alimento.perecivel}"></p>
+            <p th:text="${alimento.tipo.name}"></p>
+            <p th:text="${alimento.createdTimestamp}"></p>
+            <p th:text="${alimento.dataFabricacao}"></p>
+            <p th:text="${alimento.dataValidade}"></p>
+            <p th:text="${alimento.cadastradoPor.nome}"></p>
+
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalSolicitacao" th:if="${currentUser != alimento.cadastradoPor}" sec:authorize="isAuthenticated()">
+                Solicitar Retirada
+            </button>
+
+            <div class="modal fade" id="modalSolicitacao" tabindex="-1" aria-labelledby="modalSolicitacaoLabel" aria-hidden="true" th:if="${currentUser != alimento.cadastradoPor}" sec:authorize="isAuthenticated()">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modalSolicitacaoLabel">Solicitar Retirada</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+
+                        <form th:action="@{/alimentos/{id}/solicitar(id=${alimento.id})}" method="post" class="mt-3">
+                            <div class="modal-body">
+                                <div class="col-12">
+                                    <label for="inputMensagem" class="form-label">Mensagem</label>
+                                    <textarea
+                                            name="mensagem"
+                                            id="inputMensagem"
+                                            rows=""
+                                            cols=""
+                                            class="form-control"
+                                            placeholder="mensagem"
+                                    ></textarea>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <input type="submit" class="btn btn-success" value="Solicitar Retirada" />
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="scripts" th:include="_template :: scripts"></div>
+    </body>
+</html>

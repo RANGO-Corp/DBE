@@ -27,7 +27,7 @@ public class AuthController {
 
     @GetMapping("/login")
     public String login() {
-        return "login";
+        return "auth/login";
     }
 
     @GetMapping("/register")
@@ -45,15 +45,13 @@ public class AuthController {
         Usuario usuario = userFacade.registerUser(userRegisterDTO);
         if (Objects.isNull(usuario)) {
             log.info("User Register failed");
-            model.addAttribute("message", "Erro ao registrar");
-            return prepareRegisterPage(model);
+            return "redirect:/?error";
         }
-        redirectAttributes.addFlashAttribute("message", "Usuario registrado com sucesso!");
-        return "redirect:/";
+        return "redirect:/auth/login?success";
     }
 
     private String prepareRegisterPage(Model model) {
         model.addAttribute("estados", RegisterHelper.getEstados());
-        return "register";
+        return "auth/register";
     }
 }

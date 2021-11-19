@@ -28,17 +28,11 @@
                     <input type="email" name="email" class="form-control" th:field="*{email}" id="inputEmail">
                     <span th:errors="*{email}" class="text-danger"></span>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-8">
                     <label for="inputPassword" class="form-label">Senha</label>
                     <input type="password" class="form-control" id="inputPassword" name="password"
                            th:value="${userRegisterDTO.password}" th:field="*{password}" min="8" maxlength="32">
                     <span th:errors="*{password}" class="text-danger"></span>
-                </div>
-
-                <div class="col-md-6">
-                    <label for="inputConfirmPassword" class="form-label">Confirmar Senha</label>
-                    <input type="password" class="form-control" id="inputConfirmPassword" name="password"
-                           th:value="${userRegisterDTO.confirmPassword}" th:field="*{confirmPassword}" min="8" maxlength="32">
                 </div>
 
                 <div class="col-md-6">
@@ -128,7 +122,7 @@
                         <input class="form-check-input" type="checkbox" id="termsAndConditions"
                                th:value="${userRegisterDTO.termsAndConditions}" th:field="*{termsAndConditions}">
                         <label class="form-check-label" for="termsAndConditions">
-                            Li e concocrdo com os <a class="link">Termos e Condições</a>
+                            Li e concocrdo com os <a class="link" th:href="@{/terms}" target="_blank">Termos e Condições</a>
                         </label>
 
                         <span th:errors="*{termsAndConditions}" class="text-danger d-block"></span>

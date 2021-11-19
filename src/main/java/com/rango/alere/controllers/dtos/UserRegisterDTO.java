@@ -33,9 +33,6 @@ public class UserRegisterDTO {
     @Size(min = 8, max = 32, message = "{usuario.password.size}")
     private String password;
 
-    @Size(min = 8, max = 32, message = "{usuario.password.size}")
-    private String confirmPassword;
-
     @NotBlank(message = "{usuario.telefone.empty}")
     private String telefone;
 

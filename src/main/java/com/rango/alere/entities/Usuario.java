@@ -129,4 +129,23 @@ public class Usuario implements UserDetails {
     public boolean isEnabled() {
         return this.actived;
     }
+
+
+    @Override
+    public String toString() {
+        return "Usuario{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", telefone='" + telefone + '\'' +
+                ", confirmed=" + confirmed +
+                ", banned=" + banned +
+                ", actived=" + actived +
+                ", termsAndConditions=" + termsAndConditions +
+                ", createdTimestamp=" + createdTimestamp +
+                ", updatedTimeStamp=" + updatedTimeStamp +
+                ", endereco=" + endereco +
+                '}';
+    }
 }

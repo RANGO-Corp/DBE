@@ -27,6 +27,7 @@
                         <use xlink:href="#info-fill"/>
                     </svg>
                     Deslogado com sucesso!
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
 
                 <div th:if="${param.error}" class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -34,6 +35,15 @@
                         <use xlink:href="#exclamation-triangle-fill"/>
                     </svg>
                     Login inválido!
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+
+                <div th:if="${param.success}" class="alert alert-success alert-dismissible fade show" role="alert">
+                    <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:">
+                        <use xlink:href="#info-fill"/>
+                    </svg>
+                    Usuário registrado com sucesso!
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
 
                 <div class="col-12">

@@ -11,7 +11,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import java.util.Objects;
 
@@ -47,6 +46,7 @@ public class AlimentoFacade {
             alimento.setDataValidade(alimentoDTO.getDataValidade());
             alimento.setDataFabricacao(alimentoDTO.getDataFabricacao());
             alimento.setTipo(alimentoDTO.getTipo());
+            alimento.setAtivo(true);
             log.info("Trying registe alimento: " + alimento);
             alimento.setCadastradoPor(usuario);
             log.info("Sucessful Alimento registered");
@@ -58,6 +58,6 @@ public class AlimentoFacade {
     }
 
     public Page<Alimento> getAlimentosPage(Pageable pageable) {
-        return alimentoRepository.findAll(pageable);
+        return alimentoRepository.findAllByAtivoIsTrue(pageable);
     }
 }
