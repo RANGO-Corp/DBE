@@ -7,11 +7,11 @@ import com.rango.alere.services.exceptions.PasswordInvalidException;
 import com.rango.alere.services.impl.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.annotation.Transient;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -130,7 +130,7 @@ public class UserFacade {
         }
     }
 
-    @Transient
+    @Transactional
     public Solicitacao responderSolicitacao(Solicitacao solicitacao, Status status) {
         if (Objects.isNull(solicitacao) || Objects.isNull(status) || status.equals(Status.AGUARDANDO)) {
             throw new IllegalArgumentException();

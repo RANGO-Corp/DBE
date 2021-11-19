@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Base64;
 import java.util.Objects;
@@ -27,6 +28,7 @@ public class AlimentoFacade {
     @Autowired
     private UserFacade userFacade;
 
+    @Transactional
     public Alimento registerAlimento(AlimentoInsertDTO alimentoDTO, Usuario usuario) {
         log.info("RegisterAlimento Payload: " + alimentoDTO);
         try {

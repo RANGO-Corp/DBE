@@ -26,7 +26,6 @@ public class AlimentoInsertDTO {
     @NotEmpty(message = "{alimento.descricao.empty}")
     private String descricao;
 
-    @ValidImageFile(message = "{alimento.urlFoto.empty}")
     private MultipartFile file;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
