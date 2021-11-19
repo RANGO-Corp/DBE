@@ -17,7 +17,7 @@ import org.springframework.context.annotation.Profile;
 import java.time.LocalDateTime;
 
 @Configuration
-@Profile("test")
+@Profile("teste")
 public class TestConfig implements CommandLineRunner {
 
     @Autowired
@@ -69,7 +69,7 @@ public class TestConfig implements CommandLineRunner {
         alimentoFacade.registerAlimento(aliDto12, user3);
         alimentoFacade.registerAlimento(aliDto13, user3);
 
-        userFacade.createSolicitacao(user3, "", ali);
+        userFacade.createSolicitacao(user3, "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", ali);
 
     }
 }

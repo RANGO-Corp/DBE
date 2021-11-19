@@ -44,31 +44,43 @@
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 
-    <h2 th:text="Solicitacao"></h2>
-
-    <p th:text="${solicitacao.mensagem}"></p>
-    <p th:text="${solicitacao.status}"></p>
-    <p th:text="${solicitacao.createdTimestamp}"></p>
-    <p th:text="${solicitacao.alimento.titulo}"></p>
-    <p th:text="${solicitacao.de.nome}"></p>
-    <p th:text="${solicitacao.para.nome}"></p>
-    <p th:if="${solicitacao.doacao}"><a th:href="@{/doacoes/{id}(id=${solicitacao.doacao.id})}">doacao</a></p>
-
-
-    <div class="container" th:if="${currentUser == solicitacao.para && !solicitacao.respondida}">
-        <h2>Responder:</h2>
-        <form th:action="@{/solicitacoes/{id}/responder(id=${solicitacao.id})}" method="post" class="form row g-3">
-            <div class="col-md-4">
-                <label for="inputEstado" class="form-label">Resposta</label>
-                <select id="inputEstado" class="form-select" name="status">
-                    <option value="">Selecione a resposta</option>
-                    <option th:each="s : ${status}" th:value="${s}" th:text="${s.name}"></option>
-                </select>
+    <div class="row g-3">
+        <img th:if="!${solicitacao.alimento.image}" th:src="@{~/images/placeholder.png}" class="img img-fluid col-4">
+        <img th:if="${solicitacao.alimento.image}" th:src="*{'data:image/jpeg;base64,' + {solicitacao.alimento.image}}" class="img img-fluid col-4" >
+        <div class="container col-8">
+            <h1 th:text="${solicitacao.alimento.titulo}" class="title"></h1>
+            <div class="mb-3">
+                <label for="message" class="form-label">Mensagem</label>
+                <p id="message" th:text="${solicitacao.mensagem}"></p>
             </div>
-            <div class="col-12">
-                <button type="submit" class="btn btn-primary">Responder</button>
-            </div>
-        </form>
+        </div>
+    </div>
+    <hr>
+        <p th:if="${solicitacao.doacao}"><a th:href="@{/doacoes/{id}(id=${solicitacao.doacao.id})}" class="btn btn-outline-info" >Ver Doacao</a></p>
+    <hr th:if="${solicitacao.doacao}">
+    <div class="container mt-3">
+        <h3 th:text="${solicitacao.status.name}" th:if="${solicitacao.status == T(com.rango.alere.entities.enums.Status).AGUARDANDO}" th:classappend="text-info"></h3>
+        <h3 th:text="${solicitacao.status.name}" th:if="${solicitacao.status != T(com.rango.alere.entities.enums.Status).AGUARDANDO}" th:classappend="${solicitacao.status == T(com.rango.alere.entities.enums.Status).APROVADO} ? text-success : text-danger"></h3>
+
+        <p th:text="'De: ' + ${solicitacao.de.nome}"></p>
+        <p th:text="'Para: ' + ${solicitacao.para.nome}"></p>
+        <p th:text="'Solicitado em: ' + ${#temporals.format(solicitacao.createdTimestamp, 'dd/MM/yyyy HH:mm', new java.util.Locale('pt', 'BR'))}"></p>
+        <div th:if="${currentUser == solicitacao.para && !solicitacao.respondida}">
+            <h2>Responder: </h2>
+            <hr>
+            <form th:action="@{/solicitacoes/{id}/responder(id=${solicitacao.id})}" method="post" class="form row g-3">
+                <div class="col-md-4">
+                    <label for="inputEstado" class="form-label">Resposta</label>
+                    <select id="inputEstado" class="form-select" name="status">
+                        <option value="">Selecione a resposta</option>
+                        <option th:each="s : ${status}" th:value="${s}" th:text="${s.name}"></option>
+                    </select>
+                </div>
+                <div class="col-12">
+                    <button type="submit" class="btn btn-outline-info">Responder</button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 

@@ -7,6 +7,7 @@ import com.rango.alere.entities.enums.Estado;
 import com.rango.alere.entities.enums.Status;
 import com.rango.alere.entities.enums.TipoAlimento;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RegisterHelper {
@@ -33,7 +34,9 @@ public class RegisterHelper {
     }
 
     public static List<Status> getStatus(){
-        return List.of(Status.values());
+        List<Status> status = new ArrayList<>(List.of(Status.values()));
+        status.remove(Status.AGUARDANDO);
+        return status;
     }
 
 

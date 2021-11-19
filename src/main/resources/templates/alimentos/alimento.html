@@ -12,22 +12,28 @@
                 Para solicitar a retirada é preciso estar logado. Você pode se logar <a th:href="@{/auth/login}">aqui</a>.
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
-            <h2 th:text="${alimento.titulo}"></h2>
+            <div class="row g-3">
+                <img th:if="!${alimento.image}" th:src="@{~/images/placeholder.png}" class="img img-fluid col-4">
+                <img th:if="${alimento.image}" th:src="*{'data:image/jpeg;base64,'+{alimento.image}}" class="img img-fluid col-4" >
+                <div class="container col-8">
+                    <h1 th:text="${alimento.titulo}" class="title"></h1>
+                    <p th:text="${alimento.descricao}"></p>
+                </div>
+            </div>
             <hr>
-            <p th:text="${alimento.descricao}"></p>
-            <img th:if="!${alimento.image}" th:src="@{~/images/placeholder.png}" class="img img-fluid">
-            <img th:if="${alimento.image}" th:src="*{'data:image/jpeg;base64,'+{alimento.image}}" class="img img-fluid">
-            <p th:text="${alimento.perecivel}"></p>
-            <p th:text="${alimento.tipo.name}"></p>
-            <p th:text="${alimento.createdTimestamp}"></p>
-            <p th:text="${alimento.dataFabricacao}"></p>
-            <p th:text="${alimento.dataValidade}"></p>
-            <p th:text="${alimento.cadastradoPor.nome}"></p>
-
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalSolicitacao" th:if="${currentUser != alimento.cadastradoPor}" sec:authorize="isAuthenticated()">
+            <p th:text="'Cadastrado em: ' + ${#temporals.format(alimento.createdTimestamp, 'dd/MM/yyyy HH:mm', new java.util.Locale('pt', 'BR'))}"></p>
+            <p th:text="'Cadastrado por: ' + ${alimento.cadastradoPor.nome}"></p>
+            <p th:text="'Tipo de alimento: ' + ${alimento.tipo.name}"></p>
+            <p th:if="${alimento.perecivel}">Perecivel? Sim</p>
+            <p th:if="${!alimento.perecivel}">Perecivel? Não</p>
+            <p th:if="${alimento.dataFabricacao}" th:text="'Data de Fabricação: ' + ${#temporals.format(alimento.dataFabricacao, 'dd/MM/yyyy HH:mm', new java.util.Locale('pt', 'BR'))}"></p>
+            <p th:if="${alimento.dataFabricacao == null}">Data de Fabricação: N/A</p>
+            <p th:if="${alimento.dataValidade}" th:text="'Data de Validade: ' + ${#temporals.format(alimento.dataValidade, 'dd/MM/yyyy HH:mm', new java.util.Locale('pt', 'BR'))}"></p>
+            <p th:if="${alimento.dataValidade == null}">Data de Validade: N/A</p>
+            <hr>
+            <button type="button" class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#modalSolicitacao" th:if="${currentUser != alimento.cadastradoPor}" sec:authorize="isAuthenticated()">
                 Solicitar Retirada
             </button>
-
             <div class="modal fade" id="modalSolicitacao" tabindex="-1" aria-labelledby="modalSolicitacaoLabel" aria-hidden="true" th:if="${currentUser != alimento.cadastradoPor}" sec:authorize="isAuthenticated()">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
@@ -35,7 +41,6 @@
                             <h5 class="modal-title" id="modalSolicitacaoLabel">Solicitar Retirada</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-
                         <form th:action="@{/alimentos/{id}/solicitar(id=${alimento.id})}" method="post" class="mt-3">
                             <div class="modal-body">
                                 <div class="col-12">
@@ -52,14 +57,13 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <input type="submit" class="btn btn-success" value="Solicitar Retirada" />
+                                <input type="submit" class="btn btn btn-outline-info" value="Solicitar Retirada" />
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
-
         <div class="scripts" th:include="_template :: scripts"></div>
     </body>
 </html>

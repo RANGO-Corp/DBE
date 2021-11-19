@@ -27,9 +27,9 @@
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
 
-            <h2>Alimentos</h2>
-
-            <a th:href="@{/alimentos/new}" sec:authorize='hasRole("ROLE_DOADOR")' class="btn btn-success">Cadastrar</a>
+            <h1>Alimentos</h1>
+            <hr sec:authorize='hasRole("ROLE_DOADOR")'>
+             <a th:href="@{/alimentos/new}" sec:authorize='hasRole("ROLE_DOADOR")' class="btn btn-outline-success">Cadastrar Novo Alimento</a>
             <hr>
 
             <div class="row row-cols-1 row-cols-md-3 g-4">
@@ -40,8 +40,7 @@
                         <div class="card-body">
                             <h5 class="card-title" th:text="${alimento.titulo}"></h5>
                             <p class="card-text" th:text="${alimento.descricao}"></p>
-<!--                            <p th:text="${#temporals.format(user.dataCadastro, 'dd/MM/yyyy HH:mm', new java.util.Locale('pt', 'BR'))}"></p>-->
-                            <a th:href="@{/alimentos/{id}(id=${alimento.id})}" class="btn btn-primary">Ver mais</a>
+                            <a th:href="@{/alimentos/{id}(id=${alimento.id})}" class="btn btn-outline-info">Ver Detalhes</a>
                         </div>
                     </div>
                 </div>

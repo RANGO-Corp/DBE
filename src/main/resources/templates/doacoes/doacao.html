@@ -22,7 +22,7 @@
 
         <div class="row g-3">
             <img th:if="!${doacao.solicitacao.alimento.image}" th:src="@{~/images/placeholder.png}" class="img img-fluid col-4">
-            <img th:if="${doacao.solicitacao.alimento.image}" th:src="*{'data:image/jpeg;base64,'+{alimento.image}}" class="img img-fluid col-4" >
+            <img th:if="${doacao.solicitacao.alimento.image}" th:src="*{'data:image/jpeg;base64,'+{doacao.solicitacao.alimento.image}}" class="img img-fluid col-4" >
             <div class="container col-8">
                 <h1 th:text="${doacao.solicitacao.alimento.titulo}" class="title"></h1>
                 <p th:text="${doacao.solicitacao.alimento.descricao}"></p>
