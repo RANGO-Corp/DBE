@@ -56,6 +56,9 @@ Página para busca de alimentos
 ### Apresentação da aplicação + How To Deploy Heroku
 https://youtu.be/rpUzX5c6CZI
 
+## Link aplicação Heroku
+https://alere-app.herokuapp.com/
+
 ## Spring Profiles
 Profile | Banco de dados
 ---|---
