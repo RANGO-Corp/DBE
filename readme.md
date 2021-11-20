@@ -1,8 +1,5 @@
-# 
 
-## Digital Business Enablement
-
-#Global Impact 2021 FIAP | Alere
+# Global Impact 2021 FIAP | Alere
 
 ## Alere
 O Alere é um sistema de cadastro de alimentos para doação, muitos
