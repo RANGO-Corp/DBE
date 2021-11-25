@@ -30,10 +30,10 @@ aplicação foi deployada no Heroku
 ## Integrantes
 Nome | RM
 ----|-----
-Enrique Oliveira Caribé | RM85584
+Daiane Estenio dos Santos | RM84198
 Jacó Magalhães I Sem Chen | RM84717
 João Victor Pessoa Queiroz | RM85568
-Victor Yafusso Sunahara | RM84095
+Luís Fernando Pedro Paulino da Silva | RM85398
 
 ## Principais Funcionalidades Implementadas
 ### Cadastro de Usuário
